@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cafe Test Day</title>
+<meta name="description" content="Step-by-step checklist for installing and testing the gaming cafe system on the admin laptop and test PC.">
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --text: #1d2330; --muted: #6b7385; --line: #dde1e8;
+    --accent: #2f6fed; --done: #2e9d4f; --warn-bg: #fff6e0; --warn-text: #7a5600; --code-bg: #eef1f6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0f1420; --card: #1a2233; --text: #e8ecf3; --muted: #8a93a6; --line: #2b3650;
+      --accent: #6d9bff; --done: #4cc072; --warn-bg: #3a2f12; --warn-text: #f3d48a; --code-bg: #0f1420;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0f1420; --card: #1a2233; --text: #e8ecf3; --muted: #8a93a6; --line: #2b3650;
+    --accent: #6d9bff; --done: #4cc072; --warn-bg: #3a2f12; --warn-text: #f3d48a; --code-bg: #0f1420;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 760px; margin: 0 auto; padding: 16px 16px 80px; }
+  header { position: sticky; top: 0; z-index: 2; background: var(--bg); padding: 12px 16px 10px;
+           border-bottom: 1px solid var(--line); }
+  .head-inner { max-width: 760px; margin: 0 auto; }
+  h1 { font-size: 1.35rem; margin: 0 0 6px; }
+  .progress { display: flex; align-items: center; gap: 10px; font-size: .9rem; color: var(--muted); }
+  .bar { flex: 1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .bar > div { height: 100%; width: 0; background: var(--done); transition: width .2s; }
+  section { background: var(--card); border: 1px solid var(--line); border-radius: 10px; margin: 16px 0; padding: 4px 14px 10px; }
+  h2 { font-size: 1.05rem; margin: 12px 0 6px; display: flex; justify-content: space-between; gap: 8px; }
+  h2 .count { color: var(--muted); font-weight: 500; font-size: .85rem; white-space: nowrap; }
+  label.item { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-top: 1px solid var(--line); cursor: pointer; }
+  label.item:first-of-type { border-top: 0; }
+  label.item input { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: var(--done); }
+  label.item.checked .txt { color: var(--muted); text-decoration: line-through; }
+  .txt { min-width: 0; overflow-wrap: anywhere; }
+  code { background: var(--code-bg); border: 1px solid var(--line); border-radius: 4px; padding: 0 4px; font-size: .88em; }
+  pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 6px; padding: 10px; margin: 8px 0 2px;
+        white-space: pre-wrap; overflow-wrap: anywhere; font-size: .82rem; }
+  .note { background: var(--warn-bg); color: var(--warn-text); border-radius: 8px; padding: 10px 12px; margin: 12px 0; font-size: .92rem; }
+  ul.plain { padding-left: 20px; margin: 8px 0; }
+  ul.plain li { margin: 6px 0; }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+  button { font: inherit; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; }
+  .muted { color: var(--muted); font-size: .88rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="head-inner">
+    <h1>Cafe test day checklist</h1>
+    <div class="progress"><div class="bar"><div id="bar"></div></div><span id="progress">0 / 0</span></div>
+  </div>
+</header>
+<main>
+  <p class="muted">Tick items as you go. Ticks are saved on this phone only.</p>
+
+  <section data-sec>
+    <h2>Before you leave <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Copy <code>C:\CafeSystem\dist\CafeServer.exe</code> and <code>C:\CafeSystem\dist\CafeSetup.exe</code> to a USB stick</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Know your own admin password for both the laptop and the test PC</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>1. Admin laptop <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Give the laptop a <b>fixed IP</b> on the cafe network and write it down</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Create the folder <code>C:\CafeServer</code> and copy <code>CafeServer.exe</code> into it</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Open <b>PowerShell as administrator</b> and allow port 8000:
+      <pre>New-NetFirewallRule -DisplayName "Cafe Server" -Direction Inbound -Protocol TCP -LocalPort 8000 -Action Allow</pre></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Double-click <code>CafeServer.exe</code>. If SmartScreen appears: <b>More info → Run anyway</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">The window shows <b>“PCs use: &lt;IP&gt;”</b> matching the fixed IP. Leave the window open (minimise it)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Open <code>http://localhost:8000</code>, log in with the default owner login shown in the CafeServer window, then choose a new password</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>2. Set up the admin page <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Settings:</b> enter your cafe name</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Staff:</b> add at least one staff account <b>with a PIN</b> (4–8 digits), needed for the hidden exit on PCs</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Packages:</b> add your hour packs (e.g. 1 hour = ₹80)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Games:</b> add each game with its exact <code>.exe</code> path on the test PC (and an icon if you like)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Players:</b> create a test player and give them <b>12 minutes</b> (UPI). Check it appears in <b>Top-ups</b> with your name</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>3. Test PC <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Install the games you added, in the same folders as the paths you entered</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Copy <code>CafeSetup.exe</code> over and run it (SmartScreen: More info → Run anyway)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Enter the <b>laptop's IP</b> and the PC name <b>PC-01</b>, then click through</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Let it restart</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>4. Test checklist <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">PC boots straight to the cafe lock screen: no desktop, no taskbar</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">PC-01 appears in the admin <b>PCs</b> grid with its name and IP</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Logging in with a zero-balance player is refused: “Please top up at the counter”</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Login works, game tiles show only your games, and the time bar counts down</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">A game launches from its tile and plays normally</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Warnings appear at <b>10</b> and <b>2</b> minutes (12-minute top-up)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">At zero, the game closes and the PC locks within 1 minute</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Log out mid-session: the remaining time is there at the next login</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Admin <b>Lock</b> and <b>End session</b> take effect within 5 seconds; <b>Message</b> pops up on the PC</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Steam, Riot, Epic: after player A logs out, player B sees empty login screens</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Force-close the client (if you can): it comes back within 2 seconds</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Pull the network cable for 3 minutes: the session ends and the balance is saved correctly</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Reboot the laptop: CafeServer starts by itself and PC-01 reconnects</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Ctrl+Shift+F12</b> + staff PIN gets you out to the Windows sign-in screen</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Escape attempts by regular players all fail (Alt+Tab, Win key, Ctrl+Alt+Del, game overlays, in-game browsers)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Settings → Apps → uninstall <b>Cafe PC Client</b> returns the PC to a normal desktop (do this last, then reinstall)</span></label>
+  </section>
+
+  <section>
+    <h2>If something goes wrong</h2>
+    <ul class="plain">
+      <li><b>Get to Windows on the test PC:</b> Ctrl+Shift+F12 + staff PIN, or hold <b>Shift</b> while Windows starts. Then sign in with your admin account.</li>
+      <li><b>Undo everything:</b> Settings → Apps → uninstall “Cafe PC Client”.</li>
+      <li><b>Logs to bring back:</b>
+        <ul class="plain">
+          <li>Setup: <code>C:\ProgramData\CafeClient\setup-*.log</code></li>
+          <li>PC client: <code>C:\Users\Player\AppData\Local\CafeClient\client.log</code></li>
+          <li>Server: a screenshot of the CafeServer window</li>
+        </ul></li>
+      <li>Note which item failed and what you saw. After a fix, run <code>build.bat</code> again and reinstall.</li>
+    </ul>
+    <div class="note">Never run CafeSetup.exe on the development PC: it refuses to run there anyway.</div>
+  </section>
+
+  <div class="actions">
+    <button id="reset" type="button">Clear all ticks</button>
+  </div>
+</main>
+<script>
+  const KEY = 'cafe-test-day-v1';
+  const boxes = [...document.querySelectorAll('label.item input')];
+  let saved = [];
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
+  boxes.forEach((b, i) => { b.checked = !!saved[i]; });
+
+  function update() {
+    const done = boxes.filter(b => b.checked).length;
+    document.getElementById('progress').textContent = `${done} / ${boxes.length}`;
+    document.getElementById('bar').style.width = (100 * done / boxes.length) + '%';
+    boxes.forEach(b => b.closest('label').classList.toggle('checked', b.checked));
+    document.querySelectorAll('section[data-sec]').forEach(sec => {
+      const bs = [...sec.querySelectorAll('input')];
+      sec.querySelector('.count').textContent = `${bs.filter(b => b.checked).length}/${bs.length}`;
+    });
+    try { localStorage.setItem(KEY, JSON.stringify(boxes.map(b => b.checked))); } catch (e) {}
+  }
+  boxes.forEach(b => b.addEventListener('change', update));
+  document.getElementById('reset').addEventListener('click', () => {
+    if (confirm('Clear all ticks?')) { boxes.forEach(b => { b.checked = false; }); update(); }
+  });
+  update();
+</script>
+</body>
+</html>
