@@ -62,7 +62,7 @@
 
   <section data-sec>
     <h2>Before you leave <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Copy <code>C:\CafeSystem\dist\CafeServer.exe</code> and <code>C:\CafeSystem\dist\CafeSetup.exe</code> to a USB stick</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Copy the <b>latest</b> <code>C:\CafeSystem\dist\CafeServer.exe</code> and <code>C:\CafeSystem\dist\CafeSetup.exe</code> to a USB stick (built 1 Nov, after the Log out fix)</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Know your own admin password for both the laptop and the test PC</span></label>
   </section>
 
@@ -97,14 +97,17 @@
   <section data-sec>
     <h2>4. Test checklist <span class="count"></span></h2>
     <label class="item"><input type="checkbox"><span class="txt">PC boots straight to the cafe lock screen: no desktop, no taskbar</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Lock screen fills every monitor: cafe name, PC name, clock bottom-left, green <b>ONLINE</b> bottom-right</span></label>
     <label class="item"><input type="checkbox"><span class="txt">PC-01 appears in the admin <b>PCs</b> grid with its name and IP</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Logging in with a zero-balance player is refused: “Please top up at the counter”</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Login works, game tiles show only your games, and the time bar counts down</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Time bar floats top-right with <b>rounded corners</b> and stays visible <b>over a running game</b></span></label>
     <label class="item"><input type="checkbox"><span class="txt">A game launches from its tile and plays normally</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Warnings appear at <b>10</b> and <b>2</b> minutes (12-minute top-up)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Warnings appear at <b>10</b> and <b>2</b> minutes (12-minute top-up), <b>in front of the game</b></span></label>
     <label class="item"><input type="checkbox"><span class="txt">At zero, the game closes and the PC locks within 1 minute</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Log out</b> (games screen and time bar): the “Log out now?” card appears in front; <b>Keep playing</b> closes it</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Log out mid-session: the remaining time is there at the next login</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Admin <b>Lock</b> and <b>End session</b> take effect within 5 seconds; <b>Message</b> pops up on the PC</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Admin <b>Lock</b> and <b>End session</b> take effect within 5 seconds; <b>Message</b> pops up on the PC <b>in front of a running game</b></span></label>
     <label class="item"><input type="checkbox"><span class="txt">Steam, Riot, Epic: after player A logs out, player B sees empty login screens</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Force-close the client (if you can): it comes back within 2 seconds</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Pull the network cable for 3 minutes: the session ends and the balance is saved correctly</span></label>
@@ -135,7 +138,7 @@
   </div>
 </main>
 <script>
-  const KEY = 'cafe-test-day-v1';
+  const KEY = 'cafe-test-day-v2';
   const boxes = [...document.querySelectorAll('label.item input')];
   let saved = [];
   try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
