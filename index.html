@@ -62,9 +62,9 @@
 
   <section data-sec>
     <h2>Before you start <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 1:48 PM). Older ones can lock you out</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 2:48 PM). Older ones can lock you out</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Keep the <b>Windows recovery USB stick</b> with you</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Know the <b>Administrator password</b> of the test PC. Exit to Windows asks for it</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Know the <b>Administrator password</b> of the test PC. You need it at the Windows sign-in screen</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Choose a <b>maintenance PIN</b> of 6–12 digits and write it down somewhere safe. It unlocks a PC when the server is down</span></label>
   </section>
 
@@ -103,11 +103,11 @@
     <label class="item"><input type="checkbox"><span class="txt">After the restart, the PC boots straight to the cafe lock screen: no desktop, no taskbar</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Press <b>Ctrl+Shift+F12</b>: the Staff access box appears. Typing the PIN isn't interrupted</span></label>
     <label class="item"><input type="checkbox"><span class="txt">A wrong PIN is refused. Your <b>staff PIN</b> opens the Staff access card, in front of the lock screen</span></label>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Exit to Windows</b> asks for the Administrator password, then the PC signs out to the Windows sign-in screen and <b>stays there</b></span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Sign in as Administrator: your normal desktop works</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">On that desktop, run <b>Cafe Mode ON</b> and answer <b>y</b>: the PC restarts to the lock screen</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Exit to Windows</b> signs out straight to the Windows sign-in screen, with no password window first, and it <b>stays there</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Choose <b>Administrator</b> (bottom-left), enter the password <b>once</b>: your normal desktop works</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Restart</b> the PC: it goes straight back to the cafe lock screen (no Cafe Mode ON needed)</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Close the server window, wait for <b>OFFLINE</b> on the PC, then repeat with the <b>maintenance PIN</b>: it must get you out with the server down</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Run Cafe Mode ON again, and start <code>start_server.bat</code> again</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Restart the test PC, and start <code>start_server.bat</code> again</span></label>
   </section>
 
   <section data-sec>
@@ -152,8 +152,8 @@
   <section>
     <h2>If something goes wrong</h2>
     <ul class="plain">
-      <li><b>Get to Windows:</b> Ctrl+Shift+F12 + staff or maintenance PIN → Exit to Windows, then the Administrator password.</li>
-      <li><b>Back to cafe mode:</b> <b>Cafe Mode ON</b> on the Administrator desktop.</li>
+      <li><b>Get to Windows:</b> Ctrl+Shift+F12 + staff or maintenance PIN → Exit to Windows, then sign in as Administrator.</li>
+      <li><b>Back to cafe mode:</b> restart the PC. After the recovery USB, run <b>Cafe Mode ON</b> on the Administrator desktop first.</li>
       <li><b>If the PIN box won't open:</b> restart with Ctrl+Alt+Del → power icon, and hold <b>Shift</b> from the black screen until the account list appears.</li>
       <li><b>Last resort, the recovery USB</b> (nothing is erased):
         <ul class="plain">
@@ -163,7 +163,7 @@
             <pre>reg load HKLM\OFF C:\Windows\System32\config\SOFTWARE
 reg add "HKLM\OFF\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 0 /f
 reg unload HKLM\OFF</pre></li>
-          <li>Remove the USB and restart. The PC stops at the sign-in screen; choose Administrator.</li>
+          <li>Remove the USB and restart. The PC stops at the sign-in screen; choose Administrator. Later, <b>Cafe Mode ON</b> turns automatic sign-in back on.</li>
         </ul></li>
       <li><b>Undo everything:</b> as Administrator, Settings → Apps → uninstall “Cafe PC Client”. If the files are gone, run this in PowerShell as administrator:
         <pre>powershell -ExecutionPolicy Bypass -File C:\ProgramData\CafeClient\uninstall_pc.ps1 -RestoreThisPC</pre></li>
@@ -183,7 +183,7 @@ reg unload HKLM\OFF</pre></li>
   </div>
 </main>
 <script>
-  const KEY = 'cafe-test-day-v3';
+  const KEY = 'cafe-test-day-v4';
   const boxes = [...document.querySelectorAll('label.item input')];
   let saved = [];
   try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
