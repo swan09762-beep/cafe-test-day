@@ -61,49 +61,65 @@
   <p class="muted">Tick items as you go. Ticks are saved on this phone only.</p>
 
   <section data-sec>
-    <h2>Before you leave <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Copy the <b>latest</b> <code>C:\CafeSystem\dist\CafeServer.exe</code> and <code>C:\CafeSystem\dist\CafeSetup.exe</code> to a USB stick (built 1 Nov, after the Log out fix)</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Know your own admin password for both the laptop and the test PC</span></label>
+    <h2>Before you start <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 1:48 PM). Older ones can lock you out</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Keep the <b>Windows recovery USB stick</b> with you</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Know the <b>Administrator password</b> of the test PC. Exit to Windows asks for it</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Choose a <b>maintenance PIN</b> of 6–12 digits and write it down somewhere safe. It unlocks a PC when the server is down</span></label>
   </section>
 
   <section data-sec>
-    <h2>1. Admin laptop <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Give the laptop a <b>fixed IP</b> on the cafe network and write it down</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Create the folder <code>C:\CafeServer</code> and copy <code>CafeServer.exe</code> into it</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Open <b>PowerShell as administrator</b> and allow port 8000:
-      <pre>New-NetFirewallRule -DisplayName "Cafe Server" -Direction Inbound -Protocol TCP -LocalPort 8000 -Action Allow</pre></span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Double-click <code>CafeServer.exe</code>. If SmartScreen appears: <b>More info → Run anyway</b></span></label>
-    <label class="item"><input type="checkbox"><span class="txt">The window shows <b>“PCs use: &lt;IP&gt;”</b> matching the fixed IP. Leave the window open (minimise it)</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Open <code>http://localhost:8000</code>, log in with the default owner login shown in the CafeServer window, then choose a new password</span></label>
+    <h2>1. Server PC <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Double-click <code>C:\CafeSystem\start_server.bat</code>. Don't use <code>CafeServer.exe</code> on this PC: Smart App Control blocks it</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Note the IP on the <b>“PCs use:”</b> line (not the VPN one). This PC's address has changed before, so don't reuse an old one</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Only if you switched the firewall rules off: open <b>PowerShell as administrator</b> and run
+      <pre>Get-NetFirewallRule | Where-Object { $_.DisplayName -in 'Cafe Server','cafeserver' } | Enable-NetFirewallRule</pre></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Leave the server window open (minimise it)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Open <code>http://localhost:8000</code> and sign in</span></label>
   </section>
 
   <section data-sec>
-    <h2>2. Set up the admin page <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Settings:</b> enter your cafe name</span></label>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Staff:</b> add at least one staff account <b>with a PIN</b> (4–8 digits), needed for the hidden exit on PCs</span></label>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Packages:</b> add your hour packs (e.g. 1 hour = ₹80)</span></label>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Games:</b> add each game with its exact <code>.exe</code> path on the test PC (and an icon if you like)</span></label>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Players:</b> create a test player and give them <b>12 minutes</b> (UPI). Check it appears in <b>Top-ups</b> with your name</span></label>
+    <h2>2. Check the admin page <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Staff:</b> at least one staff account <b>with a PIN</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Packages:</b> your hour packs (e.g. 1 hour = ₹80)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Games:</b> each game with its exact <code>.exe</code> path on the test PC</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Players:</b> a test player with <b>12 minutes</b>, and one with zero balance</span></label>
   </section>
 
   <section data-sec>
-    <h2>3. Test PC <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Install the games you added, in the same folders as the paths you entered</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Copy <code>CafeSetup.exe</code> over and run it (SmartScreen: More info → Run anyway)</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Enter the <b>laptop's IP</b> and the PC name <b>PC-01</b>, then click through</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Let it restart</span></label>
+    <h2>3. Install on the test PC (cable first) <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Connect the test PC by <b>network cable</b>. Wi-Fi comes in section 6</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Sign in as <b>Administrator</b> and install the games you added, in the same folders as the paths you entered</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">In a browser on the test PC, open <code>http://&lt;server IP&gt;:8000</code>: the staff login page must appear. If not, fix the network or firewall first</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Run <code>CafeSetup.exe</code> (SmartScreen: More info → Run anyway). It reuses the old Player account, so there is nothing to clean up first</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Enter the <b>server IP</b>, the name <b>PC-01</b> and your <b>maintenance PIN</b> twice</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>It offers to restart:</b> the self-check passed. Restart now</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>“THE PC WAS NOT LOCKED”:</b> stop here. Nothing is harmed; bring back the newest setup log (see below)</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>“Server could not be reached”:</b> the PC is set up, but check the server and firewall before going on</span></label>
   </section>
 
   <section data-sec>
-    <h2>4. Test checklist <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">PC boots straight to the cafe lock screen: no desktop, no taskbar</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Lock screen fills every monitor: cafe name, PC name, clock bottom-left, green <b>ONLINE</b> bottom-right</span></label>
+    <h2>4. Way out first (before anything else) <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">After the restart, the PC boots straight to the cafe lock screen: no desktop, no taskbar</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Press <b>Ctrl+Shift+F12</b>: the Staff access box appears. Typing the PIN isn't interrupted</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">A wrong PIN is refused. Your <b>staff PIN</b> opens the Staff access card, in front of the lock screen</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Exit to Windows</b> asks for the Administrator password, then the PC signs out to the Windows sign-in screen and <b>stays there</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Sign in as Administrator: your normal desktop works</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">On that desktop, run <b>Cafe Mode ON</b> and answer <b>y</b>: the PC restarts to the lock screen</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Close the server window, wait for <b>OFFLINE</b> on the PC, then repeat with the <b>maintenance PIN</b>: it must get you out with the server down</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Run Cafe Mode ON again, and start <code>start_server.bat</code> again</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>5. Test checklist <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Lock screen fills every monitor; the login card sits on the main monitor: cafe name, PC name, clock bottom-left, green <b>ONLINE</b> bottom-right</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">You can type a whole username and password without the cursor leaving the box</span></label>
     <label class="item"><input type="checkbox"><span class="txt">PC-01 appears in the admin <b>PCs</b> grid with its name and IP</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Logging in with a zero-balance player is refused: “Please top up at the counter”</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Login works, game tiles show only your games, and the time bar counts down</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Time bar floats top-right with <b>rounded corners</b> and stays visible <b>over a running game</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Time bar floats top-right with <b>rounded corners</b> and stays visible <b>over a running game</b> (Alt+F4 can't close it)</span></label>
     <label class="item"><input type="checkbox"><span class="txt">A game launches from its tile and plays normally</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Warnings appear at <b>10</b> and <b>2</b> minutes (12-minute top-up), <b>in front of the game</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Warnings appear at <b>10</b> and <b>2</b> minutes (12-minute top-up), <b>in front of the game</b>. Also try a game in <b>exclusive full screen</b></span></label>
     <label class="item"><input type="checkbox"><span class="txt">At zero, the game closes and the PC locks within 1 minute</span></label>
     <label class="item"><input type="checkbox"><span class="txt"><b>Log out</b> (games screen and time bar): the “Log out now?” card appears in front; <b>Keep playing</b> closes it</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Log out mid-session: the remaining time is there at the next login</span></label>
@@ -111,26 +127,55 @@
     <label class="item"><input type="checkbox"><span class="txt">Steam, Riot, Epic: after player A logs out, player B sees empty login screens</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Force-close the client (if you can): it comes back within 2 seconds</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Pull the network cable for 3 minutes: the session ends and the balance is saved correctly</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Reboot the laptop: CafeServer starts by itself and PC-01 reconnects</span></label>
-    <label class="item"><input type="checkbox"><span class="txt"><b>Ctrl+Shift+F12</b> + staff PIN gets you out to the Windows sign-in screen</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Restart the server PC and run <code>start_server.bat</code>: PC-01 reconnects by itself</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Escape attempts by regular players all fail (Alt+Tab, Win key, Ctrl+Alt+Del, game overlays, in-game browsers)</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Settings → Apps → uninstall <b>Cafe PC Client</b> returns the PC to a normal desktop (do this last, then reinstall)</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>6. Wi-Fi (after the cable tests pass) <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">On the test PC, as Administrator, the Wi-Fi network is saved for all users and connects automatically. Check:
+      <pre>netsh wlan show profiles</pre>It must be listed as <b>All User Profile</b>, not Current User. Player has no Wi-Fi menu of its own.</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">The PCs' Wi-Fi is not a <b>guest network</b>: those usually stop devices reaching the server</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Customers' phones use a <b>separate Wi-Fi network</b>, not the one the PCs and server are on</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">The server PC keeps a <b>fixed address</b></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">While a player is logged in, unplug the cable so the PC moves to Wi-Fi: the game keeps running and the time keeps counting</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">The admin page still shows <b>one PC-01</b>, now with its Wi-Fi IP. <b>Activity</b> shows <code>pc_network_changed</code></span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Plug the cable back in: same result, still one PC-01</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Play a full game on Wi-Fi: no drops or lag, and the PC connects by itself after a restart</span></label>
+  </section>
+
+  <section data-sec>
+    <h2>7. Last <span class="count"></span></h2>
+    <label class="item"><input type="checkbox"><span class="txt">Settings → Apps → uninstall <b>Cafe PC Client</b> returns the PC to a normal desktop (from Administrator; then reinstall)</span></label>
   </section>
 
   <section>
     <h2>If something goes wrong</h2>
     <ul class="plain">
-      <li><b>Get to Windows on the test PC:</b> Ctrl+Shift+F12 + staff PIN, or hold <b>Shift</b> while Windows starts. Then sign in with your admin account.</li>
-      <li><b>Undo everything:</b> Settings → Apps → uninstall “Cafe PC Client”.</li>
+      <li><b>Get to Windows:</b> Ctrl+Shift+F12 + staff or maintenance PIN → Exit to Windows, then the Administrator password.</li>
+      <li><b>Back to cafe mode:</b> <b>Cafe Mode ON</b> on the Administrator desktop.</li>
+      <li><b>If the PIN box won't open:</b> restart with Ctrl+Alt+Del → power icon, and hold <b>Shift</b> from the black screen until the account list appears.</li>
+      <li><b>Last resort, the recovery USB</b> (nothing is erased):
+        <ul class="plain">
+          <li>Restart the PC (use Restart, not Shut down) and boot from the USB with the boot-menu key (F12, F11 or Esc).</li>
+          <li>At the first Windows Setup screen press <b>Shift+F10</b>. <b>Never click Install now.</b></li>
+          <li>Run these, using the drive letter that holds Windows:
+            <pre>reg load HKLM\OFF C:\Windows\System32\config\SOFTWARE
+reg add "HKLM\OFF\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogon /t REG_SZ /d 0 /f
+reg unload HKLM\OFF</pre></li>
+          <li>Remove the USB and restart. The PC stops at the sign-in screen; choose Administrator.</li>
+        </ul></li>
+      <li><b>Undo everything:</b> as Administrator, Settings → Apps → uninstall “Cafe PC Client”. If the files are gone, run
+        <code>C:\ProgramData\CafeClient\uninstall_pc.ps1 -RestoreThisPC</code> in PowerShell as administrator.</li>
       <li><b>Logs to bring back:</b>
         <ul class="plain">
-          <li>Setup: <code>C:\ProgramData\CafeClient\setup-*.log</code></li>
-          <li>PC client: <code>C:\Users\Player\AppData\Local\CafeClient\client.log</code></li>
-          <li>Server: a screenshot of the CafeServer window</li>
+          <li>Setup, including the self-check: <code>C:\ProgramData\CafeClient\setup-*.log</code></li>
+          <li>PC client: <code>C:\Users\Player\AppData\Local\CafeClient\client.log</code> and <code>startup-error.log</code></li>
+          <li>Server: a screenshot of the server window</li>
         </ul></li>
-      <li>Note which item failed and what you saw. After a fix, run <code>build.bat</code> again and reinstall.</li>
+      <li>Note which item failed and what you saw. Fixes mean a new <code>CafeSetup.exe</code>, installed over the old one.</li>
     </ul>
-    <div class="note">Never run CafeSetup.exe on the development PC: it refuses to run there anyway.</div>
+    <div class="note">Never run CafeSetup.exe on the server PC: it refuses to run there anyway. A Windows 11 PC with Smart App Control on will block it.</div>
   </section>
 
   <div class="actions">
@@ -138,7 +183,7 @@
   </div>
 </main>
 <script>
-  const KEY = 'cafe-test-day-v2';
+  const KEY = 'cafe-test-day-v3';
   const boxes = [...document.querySelectorAll('label.item input')];
   let saved = [];
   try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
