@@ -165,8 +165,8 @@ reg add "HKLM\OFF\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdminLogo
 reg unload HKLM\OFF</pre></li>
           <li>Remove the USB and restart. The PC stops at the sign-in screen; choose Administrator.</li>
         </ul></li>
-      <li><b>Undo everything:</b> as Administrator, Settings → Apps → uninstall “Cafe PC Client”. If the files are gone, run
-        <code>C:\ProgramData\CafeClient\uninstall_pc.ps1 -RestoreThisPC</code> in PowerShell as administrator.</li>
+      <li><b>Undo everything:</b> as Administrator, Settings → Apps → uninstall “Cafe PC Client”. If the files are gone, run this in PowerShell as administrator:
+        <pre>powershell -ExecutionPolicy Bypass -File C:\ProgramData\CafeClient\uninstall_pc.ps1 -RestoreThisPC</pre></li>
       <li><b>Logs to bring back:</b>
         <ul class="plain">
           <li>Setup, including the self-check: <code>C:\ProgramData\CafeClient\setup-*.log</code></li>
