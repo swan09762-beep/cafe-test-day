@@ -62,7 +62,7 @@
 
   <section data-sec>
     <h2>Before you start <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 2:48 PM). Older ones can lock you out</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 3:07 PM). Older ones can lock you out</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Keep the <b>Windows recovery USB stick</b> with you</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Know the <b>Administrator password</b> of the test PC. You need it at the Windows sign-in screen</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Choose a <b>maintenance PIN</b> of 6–12 digits and write it down somewhere safe. It unlocks a PC when the server is down</span></label>
@@ -84,6 +84,7 @@
     <label class="item"><input type="checkbox"><span class="txt"><b>Packages:</b> your hour packs (e.g. 1 hour = ₹80)</span></label>
     <label class="item"><input type="checkbox"><span class="txt"><b>Games:</b> each game with its exact <code>.exe</code> path on the test PC</span></label>
     <label class="item"><input type="checkbox"><span class="txt"><b>Players:</b> a test player with <b>12 minutes</b>, and one with zero balance</span></label>
+    <label class="item"><input type="checkbox"><span class="txt"><b>Settings → Game updates:</b> the folders your launchers and games are in (e.g. <code>C:\Riot Games</code>). Restart the server once after updating it, so it knows this setting</span></label>
   </section>
 
   <section data-sec>
@@ -119,6 +120,7 @@
     <label class="item"><input type="checkbox"><span class="txt">Login works, game tiles show only your games, and the time bar counts down</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Time bar floats top-right with <b>rounded corners</b> and stays visible <b>over a running game</b> (Alt+F4 can't close it)</span></label>
     <label class="item"><input type="checkbox"><span class="txt">A game launches from its tile and plays normally</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">When a game or launcher has an <b>update</b>, a player can install it without any admin password, and the next player doesn't download it again. Note any update that still asks for admin rights</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Warnings appear at <b>10</b> and <b>2</b> minutes (12-minute top-up), <b>in front of the game</b>. Also try a game in <b>exclusive full screen</b></span></label>
     <label class="item"><input type="checkbox"><span class="txt">At zero, the game closes and the PC locks within 1 minute</span></label>
     <label class="item"><input type="checkbox"><span class="txt"><b>Log out</b> (games screen and time bar): the “Log out now?” card appears in front; <b>Keep playing</b> closes it</span></label>
@@ -183,7 +185,7 @@ reg unload HKLM\OFF</pre></li>
   </div>
 </main>
 <script>
-  const KEY = 'cafe-test-day-v4';
+  const KEY = 'cafe-test-day-v5';
   const boxes = [...document.querySelectorAll('label.item input')];
   let saved = [];
   try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
