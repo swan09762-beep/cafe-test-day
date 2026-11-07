@@ -62,7 +62,7 @@
 
   <section data-sec>
     <h2>Before you start <span class="count"></span></h2>
-    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 3:07 PM). Older ones can lock you out</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Use the <b>latest</b> <code>C:\CafeSystem\dist\CafeSetup.exe</code> (built 7 Nov, 3:52 PM). Older ones can lock you out</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Keep the <b>Windows recovery USB stick</b> with you</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Know the <b>Administrator password</b> of the test PC. You need it at the Windows sign-in screen</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Choose a <b>maintenance PIN</b> of 6–12 digits and write it down somewhere safe. It unlocks a PC when the server is down</span></label>
@@ -71,7 +71,7 @@
   <section data-sec>
     <h2>1. Server PC <span class="count"></span></h2>
     <label class="item"><input type="checkbox"><span class="txt">Double-click <code>C:\CafeSystem\start_server.bat</code>. Don't use <code>CafeServer.exe</code> on this PC: Smart App Control blocks it</span></label>
-    <label class="item"><input type="checkbox"><span class="txt">Note the IP on the <b>“PCs use:”</b> line (not the VPN one). This PC's address has changed before, so don't reuse an old one</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Note the IP on the <b>“PCs use:”</b> line (not the VPN one): CafeSetup asks for it once. If it changes later, the PCs find the server again by themselves</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Only if you switched the firewall rules off: open <b>PowerShell as administrator</b> and run
       <pre>Get-NetFirewallRule | Where-Object { $_.DisplayName -in 'Cafe Server','cafeserver' } | Enable-NetFirewallRule</pre></span></label>
     <label class="item"><input type="checkbox"><span class="txt">Leave the server window open (minimise it)</span></label>
@@ -130,6 +130,7 @@
     <label class="item"><input type="checkbox"><span class="txt">Force-close the client (if you can): it comes back within 2 seconds</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Pull the network cable for 3 minutes: the session ends and the balance is saved correctly</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Restart the server PC and run <code>start_server.bat</code>: PC-01 reconnects by itself</span></label>
+    <label class="item"><input type="checkbox"><span class="txt">Move the <b>server PC</b> between Wi-Fi and cable (its address changes): within about a minute PC-01 shows ONLINE again by itself, still one PC-01 on the admin page</span></label>
     <label class="item"><input type="checkbox"><span class="txt">Escape attempts by regular players all fail (Alt+Tab, Win key, Ctrl+Alt+Del, game overlays, in-game browsers)</span></label>
   </section>
 
@@ -185,7 +186,7 @@ reg unload HKLM\OFF</pre></li>
   </div>
 </main>
 <script>
-  const KEY = 'cafe-test-day-v5';
+  const KEY = 'cafe-test-day-v6';
   const boxes = [...document.querySelectorAll('label.item input')];
   let saved = [];
   try { saved = JSON.parse(localStorage.getItem(KEY) || '[]'); } catch (e) { saved = []; }
